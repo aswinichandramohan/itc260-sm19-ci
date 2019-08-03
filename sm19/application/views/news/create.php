@@ -1,7 +1,9 @@
 <?php
 //application/views/news/create.php
+
+$this->load->view($this->config->item('theme') . 'header');
 ?>
-<h2><?php echo $title; ?></h2>
+<!--<h2><?php echo $title; ?></h2>-->
 
 <?php echo validation_errors(); ?>
 
@@ -16,3 +18,7 @@
     <input type="submit" name="submit" value="Create news item" />
 
 </form>
+<?
+$this->load->view($this->config->item('theme') . 'footer');
+
+?>

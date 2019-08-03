@@ -31,7 +31,22 @@ class News_model extends CI_Model {
             'text' => $this->input->post('text')
         );
 
-        return $this->db->insert('sm19_news', $data);
+        //return $this->db->insert('sm19_news', $data);
+        
+        if($this->db->insert('sm19_news', $data))
+        {
+            //return slug
+            return $slug;
+            
+        }
+        
+        else
+        {
+            //return false
+            return false;
+        }
+        
+        
     }
 
 }

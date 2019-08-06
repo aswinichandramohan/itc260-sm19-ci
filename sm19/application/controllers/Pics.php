@@ -22,7 +22,7 @@ class Pics extends CI_Controller {
             $nav1 = $this->config->item('nav1');
            
             $data['title'] = 'Pics (sourced from Flickr)';
-            $data['tags'] = ['Sounders', 'Mariners', 'Seattle'];
+            $data['tags'] = ['Sounders', 'Mariners', 'Seattle', 'SeaHawks', 'Amazon', 'Amazon Spheres', 'Space Needle'];
 
             $this->load->view('pics/index', $data);
         }
@@ -94,36 +94,22 @@ class Pics extends CI_Controller {
             */
         }
 
-        public function view($slug = NULL)
+        public function view($tag = NULL)
         {
-            /*
-                slug, without dashes
-                uppercase slug words
-                use dashless slug for the title
-                maybe add, 'News flash - '
+            $this->config->set_item('title', 'Pictures of ' . $tag);
             
-           
+            $data['title'] = 'Pictures of ' . utf8_decode(urldecode($tag));
+            $data['pics'] = $this->pics_model->get_pics($tag);
             
-            //slug without dashes
-            $dashless_slug = str_replace("-", " ", $slug);
-            //uppercase slug words
-            $dashless_slug = ucwords($dashless_slug); 
-            //use dashless slug for the title
-            $this->config->set_item('title','News Flash - ' . $dashless_slug);
-            
-            $data['news_item'] = $this->news_model->get_news($slug);
+            //var_dump($data);
+            //die;
 
-            if (empty($data['news_item']))
+            if (empty($data['pics']))
             {
                     show_404();
             }
 
-            $data['title'] = $data['news_item']['title'];
-
-            //$this->load->view('templates/header', $data);
-            $this->load->view('news/view', $data);
-            //$this->load->view('templates/footer',$data);
-            */
+            $this->load->view('pics/view', $data);
         }
 }
 ?>

@@ -15,8 +15,19 @@ class Pics extends CI_Controller {
                 */
         }
         
+        public function index()
+        {
+            $this->config->set_item('title','Pictures (from Flickr)');
+           
+            $nav1 = $this->config->item('nav1');
+           
+            $data['title'] = 'Pics (sourced from Flickr)';
+            $data['tags'] = ['Sounders', 'Mariners', 'Seattle'];
 
-       public function index()
+            $this->load->view('pics/index', $data);
+        }
+        
+        public function index1()
         {
            
            // $api_key = $this->config->item('flickrKey');
@@ -42,7 +53,7 @@ class Pics extends CI_Controller {
             die;
             */
  
-            $tags = 'mariners'; 
+            $tags = 'sounders'; 
             $pics = $this->pics_model->get_pics($tags);
            
             /*

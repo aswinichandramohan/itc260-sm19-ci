@@ -18,6 +18,8 @@ class Pics extends CI_Controller {
         $data['title'] = 'Pics (sourced from Flickr)';
         $data['tags'] = ['Sounders', 'Mariners', 'Seattle', 'SeaHawks', 'Amazon', 'Amazon Spheres', 'Space Needle'];
 
+        $this->load->helper('form');
+        
         $this->load->view('pics/index', $data);
     }
 
@@ -30,6 +32,23 @@ class Pics extends CI_Controller {
 
         //var_dump($data);
         //die;
+
+        if (empty($data['pics']))
+        {
+            show_404();
+        }
+
+        $this->load->view('pics/view', $data);
+    }
+    
+    public function search($tag = NULL)
+    {
+        $this->load->helper('url');
+
+        $tag = $this->input->post('search_tag');
+
+        $data['title'] = 'Pictures of ' . utf8_decode(urldecode($tag));
+        $data['pics'] = $this->pics_model->get_pics(utf8_encode(urlencode($tag)));
 
         if (empty($data['pics']))
         {
